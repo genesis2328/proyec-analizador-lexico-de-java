@@ -1,37 +1,252 @@
-## Welcome to GitHub Pages
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */
+options
+{
+  static = true;
+}
 
-You can use the [editor on GitHub](https://github.com/genesis2328/proyec-analizador-lexico-de-java/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+PARSER_BEGIN(Parse)
+package edu.itsco;
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+public class Parse
+{
+  public static void main(String args []) throws ParseException
+  {
+    Parse parse = new Parser(System.in);
+    System.out.println("Bienvenido al compilador");
+    System.out.println("---------------");
+    Parser.grmaticageneral();
+    System.out.println("Compilacion con exito");
+}
+{
 
-### Markdown
+(
+  PARSER_END(Parse)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+SKIP :
+{
+  " "
+| "\r"
+| "\t"
+| "\n"
+}
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+TOKEN : /* OPERATORS */
+{
+  < REALES: "in" >
+  < CADENAS: "stream">
+  < DECIMALES: "double">
+  
+  < ESCRIBE: "while">
+  < LEE: "write">
 
-- Bulleted
-- List
+  < false: "true">
+  < false : "true">
+  
+  < OPCION: "if">
+  < CASO: "case">
+  < TERMINA: "brake">
+  < PREDETERMINADO: "predeterminado">
+  
+  < PARA: "para">
 
-1. Numbered
-2. List
+  < MIENTRAS: "mienrtras">
+  < HAZ: "haz">
+  < MAQUINA: "maquina">
+  
+}
 
-**Bold** and _Italic_ and `Code` text
+TOKEN :
+{
+TOKEN : /* OPERATORS */
+{
+  < MAS : "+">
+| < MENOS : "-">
+| < MULTIPLICA : "*">
+| < DIVIDE : "/">
+  < PORCIENTO: "%">
+  < IGUAL: "=">
 
-[Link](url) and ![Image](src)
-```
+  < MAYOR: ">">
+  < MENOR: "<">
+  
+  < AND: "&&">
+  < OR: "||">
+  < NOT: "!">
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+  < ABRE: "(">
+  < CIERRA: ")">
 
-### Jekyll Themes
+  < APERTURA: "{">
+  < CLAUSURA: "}">
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/genesis2328/proyec-analizador-lexico-de-java/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+  < PC: ";">
+  < DP: ":">
 
-### Support or Contact
+//token:\* DINAMICOS
+TOKEN:
+{
+  < #DIGITOS: ["0"-"8"] >
+  < #CARACTERES: ["a" - "z","A" - "Z"] >
+  < ID: (<CARACTERES>|"")(<CARACTERES>|<DIGITOS>|"")*>
+  < VALue_in: (<DIGITOS>)+ >
+  < VAlue_stream: "\"" (~["\""])+ "\"">
+  < VALue_doubles: (<DIGITOS>)+"."(<DIGITOS>)+>
+}
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+GRAMATICA GENERAL
+void gramaticaPrincipal():
+{
+  
+}
+}
+  <PROGRAMA> <ID> <APERTURA>
+  GramaticaSentencias()
+  <CLAUSURA>
+}
+
+void gramaticaSentencias();
+{
+}
+{
+  
+  console.readkey()
+  console.read()
+  console.while()
+  condiccional()
+  console.white()
+  console.double()
+  console.swing()
+  gramaticaAsignacion()
+  console.For()
+)+
+}
+  
+
+
+void gramaticaDeclarararVariable():
+{
+} {
+   tipoDato() <ID> [<IGUAL> value()] < PC>
+ }
+
+ void tipoDato():
+ {
+ } {
+   < in> | <stream> | <double>
+ }
+
+ void values():
+ {
+ }
+ {
+   <values_REALES> | <values_stream> | <values_double> | <ID>
+ }
+
+ void console.readkey():
+ {
+ }
+ {
+   <reakey> <ABRE> <ID> <CIERRA> <PC>
+ }
+
+void console.white():
+{
+}
+{
+  < while> <ABRE> value() (<MAS>) value())* <CIERRA> <PC>
+  }
+
+  void console true():
+  {
+  }
+  {
+    <true> <ABRE> condicion() <CIERRA>
+    <APERTURA>
+    gramaticaSentencias()
+    <CLAUSURA>
+
+    [<SINO> <APERTURA> gramaticaSentencias() <CLAUSURA>]
+  }
+
+  void condicion():
+  {
+  }
+  {
+    evualarSimple() (operadorLogico() evaluacionSimple())*
+  }
+
+  void evaluacionSimple():
+  {
+  }
+  {
+    value() OperacionR() value()
+}
+
+  void OperacionR():
+  
+{
+}
+{
+
+
+  <MAYOR> [<IGUAL>]
+  <MENOR> [<IGUAL>]
+  <NOT> <IGUAL>
+  <IGUAL> <IGUAL>
+  
+void OperacionL(): { }
+{
+  <AND> | <OR>
+}
+
+void gramaticaMientras(): { }
+{
+    < MIENTRAS> <ABRE> condicion() <CIERRA>
+    < APERTURA> gramaticaSentencias() <CLAUSURA>
+}
+
+void gramaticarHazMientras(): { }
+{
+  <HAZ> <APERTURA> gramaticaSentencia() <CLAUSURA>
+  <MIENTRAS> <ABRE> condicion() <CIERRA> <PC >
+}
+   
+void gramaticaOpcion(): { }
+{
+  <OPCION> <ABRE> <ID> <CIERRA>
+  <APERTURA>
+  (<CASO> < VALUE_in> <DP> gramaticaSentiencias()<TERMINA> <PC>)+
+  [<PREDETERMINADO> gramaticaSentencias()[<TERMINA> <PC>]]
+  <CLAUSURA>
+}
+
+void gramaticaAsignacion(): { }
+{
+  <ID> <IGUAL> operacionS() <PC>
+}
+
+void operacionS(): { }
+{
+  (valor()|operacionP())
+  (operadorA() (value()| operacionP()))*
+}
+
+void operacionP(): { }
+{
+  <ABRE> operacionS() <CIERRA>
+}
+
+void operadorA(): { }
+{
+  <MAS> | <MENOS> | <MULTIPLICA> | <DIVIDE> | <PROCIENTO>
+}
+
+void gramaticaPara(): { }
+{
+  <PARA> <ABRE> <ID> <IGUAL> value() <PC> condicion() <PC> < ID> (<MAS><MAS> | <MENOS><MENOS> | <IGUAL> operacionS())
+  <CIERRA>
+  <APERTURA> gramaticaS() <CLAUSURA>
+
